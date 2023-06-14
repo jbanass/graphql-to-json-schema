@@ -27,8 +27,10 @@ import type {
   IDTypeMapping as IDTypeMappingType,
 } from './types'
 
+type BpJSONSchema6 = JSONSchema6 & { isDeprecated?: boolean, deprecationReason?: string | null }
+
 export type JSONSchema6Acc = {
-  [k: string]: JSONSchema6
+  [k: string]: BpJSONSchema6
 }
 
 type ReducerOptions = {
@@ -91,6 +93,8 @@ export const introspectionFieldReducerGenerator: (
           },
         },
         required: [],
+        isDeprecated: curr.isDeprecated,
+        deprecationReason: curr.deprecationReason
       }
     } else if (isIntrospectionInputValue(curr)) {
       const returnType = isNonNullIntrospectionType(curr.type)
